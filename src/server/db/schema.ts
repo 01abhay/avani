@@ -1,13 +1,18 @@
 // Example model schema from the Drizzle docs
 // https://orm.drizzle.team/docs/sql-schema-declaration
 
-import { sql } from "drizzle-orm";
+import { relations, sql } from "drizzle-orm";
 import {
-  index,
+  // index,
   pgTableCreator,
   serial,
   timestamp,
   varchar,
+  text,
+  integer,
+  numeric,
+  jsonb,
+  vector,
 } from "drizzle-orm/pg-core";
 
 /**
@@ -16,21 +21,70 @@ import {
  *
  * @see https://orm.drizzle.team/docs/goodies#multi-project-schema
  */
-export const createTable = pgTableCreator((name) => `avani-app_${name}`);
+export const createTable = pgTableCreator((name) => name);
 
-export const posts = createTable(
-  "post",
+export const stores = createTable(
+  "stores",
   {
     id: serial("id").primaryKey(),
     name: varchar("name", { length: 256 }),
+
+    description: text("description"),
+
     createdAt: timestamp("created_at", { withTimezone: true })
       .default(sql`CURRENT_TIMESTAMP`)
       .notNull(),
     updatedAt: timestamp("updated_at", { withTimezone: true }).$onUpdate(
       () => new Date()
     ),
-  },
-  (example) => ({
-    nameIndex: index("name_idx").on(example.name),
+  }
+  // (store) => ({
+  //   nameIndex: index("name_idx").on(store.name),
+  // })
+);
+
+export const products = createTable("products", {
+  id: serial("id").primaryKey(),
+  name: varchar("name", { length: 256 }),
+  description: text("description"),
+  price: numeric("price"), // 149, 199, 149, 299, 349, 399, 449, 499, 549, 599, 649, 699, 749, 799
+  rating: numeric("rating"), // 1-5
+  images: jsonb("images"),
+  createdAt: timestamp("created_at", { withTimezone: true })
+    .default(sql`CURRENT_TIMESTAMP`)
+    .notNull(),
+  updatedAt: timestamp("updated_at", { withTimezone: true }).$onUpdate(
+    () => new Date()
+  ),
+});
+
+export const productDescriptionEmbeddings = createTable(
+  "product_description_embeddings",
+  {
+    id: serial("id").primaryKey(),
+    productId: integer("productId"),
+    embedding: vector("embedding", { dimensions: 1536 }),
+    createdAt: timestamp("created_at", { withTimezone: true })
+      .default(sql`CURRENT_TIMESTAMP`)
+      .notNull(),
+    updatedAt: timestamp("updated_at", { withTimezone: true }).$onUpdate(
+      () => new Date()
+    ),
+  }
+);
+
+export const productRelations = relations(products, ({ many }) => ({
+  embeddings: many(productDescriptionEmbeddings),
+}));
+
+export const productDescriptionEmbeddingRelations = relations(
+  productDescriptionEmbeddings,
+  ({ one }) => ({
+    author: one(products, {
+      fields: [productDescriptionEmbeddings.productId],
+      references: [products.id],
+    }),
   })
 );
+
+// store FAQs (queries)
