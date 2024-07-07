@@ -4,8 +4,11 @@
     "CLIENTVAR",
     "conn",
     "nextjs",
+    "openai",
     "runtimes",
+    "superjson",
     "trpc",
+    "typesafety",
     "vars"
   ]
 }
