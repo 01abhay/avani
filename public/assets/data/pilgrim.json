@@ -1,185 +1,185 @@
 {
-    "data": {
-        "shop": {
-            "id": "gid://shopify/Shop/62016291045",
-            "name": "Pilgrim India",
-            "email": "pritish@discoverpilgrim.com",
-            "description": "Pilgrim - Premium International Brand | No Animal Testing, No Harmful Chemicals, Natural, Vegan Friendly, FDA Approved.",
-            "storefrontUrl": "https://discoverpilgrim.com",
-            "billingAddress": {
-                "formatted": [
-                    "Heavenly Secrets Private Limited",
-                    "Khasra No. 26//15, 26//16, 27/11, 12/1, 12/2/1,",
-                    "Village Fatehpur, Tehsil Tauru, Distt. Nuh,, 122105 Touru Haryana, India",
-                    "122105 Tauru HR",
-                    "India"
-                ]
-            },
-            "domains": [
-                {
-                    "host": "discoverpilgrim.myshopify.com",
-                    "id": "gid://shopify/Domain/91035336933",
-                    "sslEnabled": true,
-                    "url": "https://discoverpilgrim.myshopify.com"
-                },
-                {
-                    "host": "discoverpilgrim.com",
-                    "id": "gid://shopify/Domain/95330992357",
-                    "sslEnabled": true,
-                    "url": "https://discoverpilgrim.com"
-                },
-                {
-                    "host": "www.discoverpilgrim.com",
-                    "id": "gid://shopify/Domain/95331025125",
-                    "sslEnabled": true,
-                    "url": "https://www.discoverpilgrim.com"
-                },
-                {
-                    "host": "link.discoverpilgrim.com",
-                    "id": "gid://shopify/Domain/104740126949",
-                    "sslEnabled": true,
-                    "url": "https://link.discoverpilgrim.com"
-                }
-            ],
-            "allProductCategories": [
-                {
-                    "productTaxonomyNode": {
-                        "id": "gid://shopify/ProductTaxonomyNode/14377",
-                        "fullName": "Animals & Pet Supplies > Pet Supplies > Pet Grooming Supplies > Pet Shampoo & Conditioner > Conditioners",
-                        "name": "Conditioners",
-                        "isRoot": false,
-                        "isLeaf": true
-                    }
-                },
-                {
-                    "productTaxonomyNode": {
-                        "id": "gid://shopify/ProductTaxonomyNode/1821",
-                        "fullName": "Food, Beverages & Tobacco > Food Items > Dairy Products > Cream",
-                        "name": "Cream",
-                        "isRoot": false,
-                        "isLeaf": false
-                    }
-                },
-                {
-                    "productTaxonomyNode": {
-                        "id": "gid://shopify/ProductTaxonomyNode/2847",
-                        "fullName": "Health & Beauty > Personal Care > Cosmetics > Makeup > Eye Makeup",
-                        "name": "Eye Makeup",
-                        "isRoot": false,
-                        "isLeaf": false
-                    }
-                },
-                {
-                    "productTaxonomyNode": {
-                        "id": "gid://shopify/ProductTaxonomyNode/2856",
-                        "fullName": "Health & Beauty > Personal Care > Cosmetics > Makeup > Face Makeup",
-                        "name": "Face Makeup",
-                        "isRoot": false,
-                        "isLeaf": false
-                    }
-                },
-                {
-                    "productTaxonomyNode": {
-                        "id": "gid://shopify/ProductTaxonomyNode/2859",
-                        "fullName": "Health & Beauty > Personal Care > Cosmetics > Makeup > Face Makeup > Face Primers",
-                        "name": "Face Primers",
-                        "isRoot": false,
-                        "isLeaf": true
-                    }
-                },
-                {
-                    "productTaxonomyNode": {
-                        "id": "gid://shopify/ProductTaxonomyNode/5582",
-                        "fullName": "Gift Cards",
-                        "name": "Gift Cards",
-                        "isRoot": true,
-                        "isLeaf": true
-                    }
-                },
-                {
-                    "productTaxonomyNode": {
-                        "id": "gid://shopify/ProductTaxonomyNode/2932",
-                        "fullName": "Health & Beauty > Personal Care > Hair Care",
-                        "name": "Hair Care",
-                        "isRoot": false,
-                        "isLeaf": false
-                    }
-                },
-                {
-                    "productTaxonomyNode": {
-                        "id": "gid://shopify/ProductTaxonomyNode/2692",
-                        "fullName": "Health & Beauty",
-                        "name": "Health & Beauty",
-                        "isRoot": true,
-                        "isLeaf": false
-                    }
-                },
-                {
-                    "productTaxonomyNode": {
-                        "id": "gid://shopify/ProductTaxonomyNode/2889",
-                        "fullName": "Health & Beauty > Personal Care > Cosmetics > Skin Care > Lip Balms & Treatments",
-                        "name": "Lip Balms & Treatments",
-                        "isRoot": false,
-                        "isLeaf": false
-                    }
-                },
-                {
-                    "productTaxonomyNode": {
-                        "id": "gid://shopify/ProductTaxonomyNode/2892",
-                        "fullName": "Health & Beauty > Personal Care > Cosmetics > Skin Care > Lotions & Moisturizers",
-                        "name": "Lotions & Moisturizers",
-                        "isRoot": false,
-                        "isLeaf": true
-                    }
-                },
-                {
-                    "productTaxonomyNode": {
-                        "id": "gid://shopify/ProductTaxonomyNode/2956",
-                        "fullName": "Health & Beauty > Personal Care > Hair Care > Shampoo & Conditioner > Shampoo",
-                        "name": "Shampoo",
-                        "isRoot": false,
-                        "isLeaf": true
-                    }
-                },
-                {
-                    "productTaxonomyNode": {
-                        "id": "gid://shopify/ProductTaxonomyNode/2880",
-                        "fullName": "Health & Beauty > Personal Care > Cosmetics > Skin Care",
-                        "name": "Skin Care",
-                        "isRoot": false,
-                        "isLeaf": false
-                    }
-                },
-                {
-                    "productTaxonomyNode": {
-                        "id": "gid://shopify/ProductTaxonomyNode/2903",
-                        "fullName": "Health & Beauty > Personal Care > Cosmetics > Skin Care > Toners & Astringents > Toners",
-                        "name": "Toners",
-                        "isRoot": false,
-                        "isLeaf": true
-                    }
-                },
-                {
-                    "productTaxonomyNode": {
-                        "id": "gid://shopify/ProductTaxonomyNode/9483",
-                        "fullName": "Uncategorized",
-                        "name": "Uncategorized",
-                        "isRoot": true,
-                        "isLeaf": true
-                    }
-                }
-            ]
+  "data": {
+    "shop": {
+      "id": "gid://shopify/Shop/62016291045",
+      "name": "Pilgrim India",
+      "email": "pritish@discoverpilgrim.com",
+      "description": "Pilgrim - Premium International Brand | No Animal Testing, No Harmful Chemicals, Natural, Vegan Friendly, FDA Approved.",
+      "storefrontUrl": "https://discoverpilgrim.com",
+      "billingAddress": {
+        "formatted": [
+          "Heavenly Secrets Private Limited",
+          "Khasra No. 26//15, 26//16, 27/11, 12/1, 12/2/1,",
+          "Village Fatehpur, Tehsil Tauru, Distt. Nuh,, 122105 Touru Haryana, India",
+          "122105 Tauru HR",
+          "India"
+        ]
+      },
+      "domains": [
+        {
+          "host": "discoverpilgrim.myshopify.com",
+          "id": "gid://shopify/Domain/91035336933",
+          "sslEnabled": true,
+          "url": "https://discoverpilgrim.myshopify.com"
+        },
+        {
+          "host": "discoverpilgrim.com",
+          "id": "gid://shopify/Domain/95330992357",
+          "sslEnabled": true,
+          "url": "https://discoverpilgrim.com"
+        },
+        {
+          "host": "www.discoverpilgrim.com",
+          "id": "gid://shopify/Domain/95331025125",
+          "sslEnabled": true,
+          "url": "https://www.discoverpilgrim.com"
+        },
+        {
+          "host": "link.discoverpilgrim.com",
+          "id": "gid://shopify/Domain/104740126949",
+          "sslEnabled": true,
+          "url": "https://link.discoverpilgrim.com"
         }
-    },
-    "extensions": {
-        "cost": {
-            "requestedQueryCost": 5,
-            "actualQueryCost": 5,
-            "throttleStatus": {
-                "maximumAvailable": 20000,
-                "currentlyAvailable": 19995,
-                "restoreRate": 1000
-            }
+      ],
+      "allProductCategories": [
+        {
+          "productTaxonomyNode": {
+            "id": "gid://shopify/ProductTaxonomyNode/14377",
+            "fullName": "Animals & Pet Supplies > Pet Supplies > Pet Grooming Supplies > Pet Shampoo & Conditioner > Conditioners",
+            "name": "Conditioners",
+            "isRoot": false,
+            "isLeaf": true
+          }
+        },
+        {
+          "productTaxonomyNode": {
+            "id": "gid://shopify/ProductTaxonomyNode/1821",
+            "fullName": "Food, Beverages & Tobacco > Food Items > Dairy Products > Cream",
+            "name": "Cream",
+            "isRoot": false,
+            "isLeaf": false
+          }
+        },
+        {
+          "productTaxonomyNode": {
+            "id": "gid://shopify/ProductTaxonomyNode/2847",
+            "fullName": "Health & Beauty > Personal Care > Cosmetics > Makeup > Eye Makeup",
+            "name": "Eye Makeup",
+            "isRoot": false,
+            "isLeaf": false
+          }
+        },
+        {
+          "productTaxonomyNode": {
+            "id": "gid://shopify/ProductTaxonomyNode/2856",
+            "fullName": "Health & Beauty > Personal Care > Cosmetics > Makeup > Face Makeup",
+            "name": "Face Makeup",
+            "isRoot": false,
+            "isLeaf": false
+          }
+        },
+        {
+          "productTaxonomyNode": {
+            "id": "gid://shopify/ProductTaxonomyNode/2859",
+            "fullName": "Health & Beauty > Personal Care > Cosmetics > Makeup > Face Makeup > Face Primers",
+            "name": "Face Primers",
+            "isRoot": false,
+            "isLeaf": true
+          }
+        },
+        {
+          "productTaxonomyNode": {
+            "id": "gid://shopify/ProductTaxonomyNode/5582",
+            "fullName": "Gift Cards",
+            "name": "Gift Cards",
+            "isRoot": true,
+            "isLeaf": true
+          }
+        },
+        {
+          "productTaxonomyNode": {
+            "id": "gid://shopify/ProductTaxonomyNode/2932",
+            "fullName": "Health & Beauty > Personal Care > Hair Care",
+            "name": "Hair Care",
+            "isRoot": false,
+            "isLeaf": false
+          }
+        },
+        {
+          "productTaxonomyNode": {
+            "id": "gid://shopify/ProductTaxonomyNode/2692",
+            "fullName": "Health & Beauty",
+            "name": "Health & Beauty",
+            "isRoot": true,
+            "isLeaf": false
+          }
+        },
+        {
+          "productTaxonomyNode": {
+            "id": "gid://shopify/ProductTaxonomyNode/2889",
+            "fullName": "Health & Beauty > Personal Care > Cosmetics > Skin Care > Lip Balms & Treatments",
+            "name": "Lip Balms & Treatments",
+            "isRoot": false,
+            "isLeaf": false
+          }
+        },
+        {
+          "productTaxonomyNode": {
+            "id": "gid://shopify/ProductTaxonomyNode/2892",
+            "fullName": "Health & Beauty > Personal Care > Cosmetics > Skin Care > Lotions & Moisturizers",
+            "name": "Lotions & Moisturizers",
+            "isRoot": false,
+            "isLeaf": true
+          }
+        },
+        {
+          "productTaxonomyNode": {
+            "id": "gid://shopify/ProductTaxonomyNode/2956",
+            "fullName": "Health & Beauty > Personal Care > Hair Care > Shampoo & Conditioner > Shampoo",
+            "name": "Shampoo",
+            "isRoot": false,
+            "isLeaf": true
+          }
+        },
+        {
+          "productTaxonomyNode": {
+            "id": "gid://shopify/ProductTaxonomyNode/2880",
+            "fullName": "Health & Beauty > Personal Care > Cosmetics > Skin Care",
+            "name": "Skin Care",
+            "isRoot": false,
+            "isLeaf": false
+          }
+        },
+        {
+          "productTaxonomyNode": {
+            "id": "gid://shopify/ProductTaxonomyNode/2903",
+            "fullName": "Health & Beauty > Personal Care > Cosmetics > Skin Care > Toners & Astringents > Toners",
+            "name": "Toners",
+            "isRoot": false,
+            "isLeaf": true
+          }
+        },
+        {
+          "productTaxonomyNode": {
+            "id": "gid://shopify/ProductTaxonomyNode/9483",
+            "fullName": "Uncategorized",
+            "name": "Uncategorized",
+            "isRoot": true,
+            "isLeaf": true
+          }
         }
+      ]
     }
+  },
+  "extensions": {
+    "cost": {
+      "requestedQueryCost": 5,
+      "actualQueryCost": 5,
+      "throttleStatus": {
+        "maximumAvailable": 20000,
+        "currentlyAvailable": 19995,
+        "restoreRate": 1000
+      }
+    }
+  }
 }

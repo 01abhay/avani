@@ -74,6 +74,7 @@
 }
 
 .footer {
+  display: flex;
   background-color: #f1f1f1;
   padding: 10px;
   text-align: center;
@@ -99,6 +100,14 @@
   overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;
+  line-clamp: 3;
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
+}
+
+.input {
+  flex: 1;
+  height: 32px;
+  border-radius: 8px;
+  border-color: grey;
 }

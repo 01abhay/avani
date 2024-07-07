@@ -1,6 +1,6 @@
 // import { z } from "zod";
 
-import { createTRPCRouter, publicProcedure } from "~/server/api/trpc";
+import { createTRPCRouter, publicProcedure } from '~/server/api/trpc'
 // import { products } from "~/server/db/schema";
 
 export const productRouter = createTRPCRouter({
@@ -27,6 +27,6 @@ export const productRouter = createTRPCRouter({
     return ctx.db.query.products.findMany({
       // orderBy: (posts, { desc }) => [desc(posts.createdAt)],
       limit: 25,
-    });
+    })
   }),
-});
+})

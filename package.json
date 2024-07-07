@@ -11,6 +11,7 @@
     "db:studio": "drizzle-kit studio",
     "dev": "next dev",
     "lint": "next lint",
+    "format": "prettier . --write",
     "start": "next start"
   },
   "dependencies": {
@@ -46,6 +47,7 @@
     "eslint": "^8.56.0",
     "eslint-config-next": "^14.2.4",
     "eslint-plugin-drizzle": "^0.2.3",
+    "prettier": "^3.3.2",
     "typescript": "^5.5.3"
   },
   "ct3aMetadata": {

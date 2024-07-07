@@ -1,4 +1,4 @@
-import OpenAI from "openai";
+import OpenAI from 'openai'
 
 // import {
 //   suggestBestsellingProducts,
@@ -6,38 +6,38 @@ import OpenAI from "openai";
 //   getShopPolicies,
 // } from "./shopify";
 
-const openai = new OpenAI();
+const openai = new OpenAI()
 
 export const embeddings = async (input: string[]) => {
   const res = await openai.embeddings.create({
-    model: "text-embedding-3-small",
+    model: 'text-embedding-3-small',
     input,
-    encoding_format: "float",
-  });
-  return res.data;
-};
+    encoding_format: 'float',
+  })
+  return res.data
+}
 
 export const vision = async (text: string, image_urls: string[]) => {
   const response = await openai.chat.completions.create({
-    model: "gpt-4o",
+    model: 'gpt-4o',
     messages: [
       {
-        role: "user",
+        role: 'user',
         content: [
-          { type: "text", text },
+          { type: 'text', text },
           ...image_urls.map(
-            (i) =>
+            i =>
               ({
-                type: "image_url",
-                image_url: { url: i, detail: "low" },
-              } as const)
+                type: 'image_url',
+                image_url: { url: i, detail: 'low' },
+              }) as const,
           ),
         ],
       },
     ],
-  });
-  return response.choices[0]!;
-};
+  })
+  return response.choices[0]!
+}
 
 // const functions = () => ({
 //   suggest_bestselling_products: suggestBestsellingProducts,
@@ -103,33 +103,25 @@ export const vision = async (text: string, image_urls: string[]) => {
 //   },
 // ];
 
-type CompletionParam = OpenAI.Chat.Completions.ChatCompletionMessageParam;
+type CompletionParam = OpenAI.Chat.Completions.ChatCompletionMessageParam
 type OpenAICompletion = {
-  previousMessages?: CompletionParam[];
-  currentMessage: CompletionParam;
-};
-export const completion = ({
-  previousMessages = [],
-  currentMessage,
-  useTools = false,
-}: OpenAICompletion & { useTools?: boolean }) => {
+  previousMessages?: CompletionParam[]
+  currentMessage: CompletionParam
+}
+export const completion = ({ previousMessages = [], currentMessage, useTools = false }: OpenAICompletion & { useTools?: boolean }) => {
   const systemPrompt = `You are a sales agent on an e-commerce platform, your job is to reply to customer queries just as a real life sales agent would.
     You will be given relevant info about the products and policies if and when required to be used to answer a query appropriately.
     you must try to reply within 120 words.
 
-    please respond in plain text instead of markdown format.`;
+    please respond in plain text instead of markdown format.`
 
   return openai.chat.completions.create({
-    model: "gpt-3.5-turbo-0125",
-    messages: [
-      { role: "system", content: systemPrompt },
-      ...previousMessages,
-      currentMessage,
-    ],
+    model: 'gpt-3.5-turbo-0125',
+    messages: [{ role: 'system', content: systemPrompt }, ...previousMessages, currentMessage],
     // ...(useTools ? { tools, tool_choice: "auto" } : {}),
     max_tokens: 512,
-  });
-};
+  })
+}
 
 // type MessagesResp = ({
 //   role: OpenAI.Chat.Completions.ChatCompletionRole;
@@ -185,19 +177,19 @@ export const completion = ({
 //             messageChunk = "of few bestselling products at our store";
 //           const completionForProductRecommendations = await completion({
 //             previousMessages: [{ role: "user", content: message.message! }],
-            // currentMessage: {
-            //   role: "system",
-            //   content: `Here is the JSON of products ${messageChunk}:
-            //   ${JSON.stringify(
-            //     products.map((p: any) => ({
-            //       title: p.title,
-            //       description: p.description,
-            //     }))
-            //   )}
+// currentMessage: {
+//   role: "system",
+//   content: `Here is the JSON of products ${messageChunk}:
+//   ${JSON.stringify(
+//     products.map((p: any) => ({
+//       title: p.title,
+//       description: p.description,
+//     }))
+//   )}
 
-            //   based on user query recommend on ore more of these to the customer. do not list or describe products unless user asked,
-            //   try to keep each products description under 30 words if replying with description.`,
-            // },
+//   based on user query recommend on ore more of these to the customer. do not list or describe products unless user asked,
+//   try to keep each products description under 30 words if replying with description.`,
+// },
 //           });
 //           const _topChoice = completionForProductRecommendations.choices[0];
 //           if (_topChoice.message.content) {
