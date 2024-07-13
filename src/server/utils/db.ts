@@ -44,6 +44,7 @@ export const getProductsBasedOnSimilarityScore = async (embedding: number[]) => 
       description: products.description,
       name: products.name,
       images: products.images,
+      price: products.price,
     })
     .from(products)
     .where(inArray(products.id, productsIds.map(p => p.productId!).filter(Boolean)))

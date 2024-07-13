@@ -11,6 +11,9 @@
   width: 100%;
   margin-bottom: 0px;
   border-radius: 12px;
+  aspect-ratio: 1;
+  object-fit: cover;
+  background: #eeeeee;
 }
 
 .content {

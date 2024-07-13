@@ -14,6 +14,7 @@ const suggestProductsActionDataSchema = z.object({
           id: z.string(),
           name: z.string().nullable(),
           images: z.array(z.string()).nullable(),
+          price: z.string().nullable(),
         }),
       ),
     })
