@@ -20,7 +20,7 @@ function InputBar() {
     ])
     form.reset()
     utils.ai.getAiResponse
-      .fetch({ message, action: 'none' })
+      .fetch({ message })
       .then(res => addMessages([res], true))
       .catch(() => addMessages([{ id: Math.random(), role: 'assistant', message: 'Something went wrong!' }], true))
   }

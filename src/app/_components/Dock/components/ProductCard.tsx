@@ -11,7 +11,9 @@ export function ProductCard({ p }: Props) {
     <div className={style.card}>
       <img className={style.image} src={p.images?.[0]} alt={p.name!} />
       <div className={style.content}>
-        <div className={style.name}>{p.name}</div>
+        <div className={style.name} title={p.name!}>
+          {p.name}
+        </div>
         <div className={style.price}>₹ {p.price}</div>
         <button className={style.button}>Add to cart</button>
       </div>
