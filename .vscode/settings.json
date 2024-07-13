@@ -14,6 +14,7 @@
     "superjson",
     "trpc",
     "typesafety",
-    "vars"
+    "vars",
+    "zustand"
   ]
 }

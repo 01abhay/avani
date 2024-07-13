@@ -1,5 +1,4 @@
 'use client'
-
 import { QueryClientProvider, type QueryClient } from '@tanstack/react-query'
 import { loggerLink, unstable_httpBatchStreamLink } from '@trpc/client'
 import { createTRPCReact } from '@trpc/react-query'
