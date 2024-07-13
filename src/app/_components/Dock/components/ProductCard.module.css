@@ -1,0 +1,7 @@
+.card {
+  flex-shrink: 0;
+  width: 164px;
+  height: 208px;
+  border-radius: 12px;
+  background-color: red;
+}

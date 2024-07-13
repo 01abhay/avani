@@ -3,7 +3,7 @@
   flex-direction: column;
   gap: 12px;
 
-  min-width: 360px;
+  width: 340px;
   padding: 12px;
   padding-bottom: 60px;
   z-index: 9;
@@ -35,4 +35,12 @@
   font-size: 11px;
   color: #9f9f9f;
   text-align: right;
+}
+
+.productsCarousel {
+  flex: 1;
+  display: flex;
+  gap: 12px;
+  overflow: scroll;
+  mask-image: linear-gradient(to right, #000, #000, #00000059);
 }

@@ -1,5 +1,5 @@
 import React from 'react'
-import ChatContainer from './atoms/ChatContainer'
+import ChatContainer from './components/ChatContainer'
 
 function Dock() {
   return <ChatContainer />
