@@ -62,7 +62,7 @@
   display: flex;
   gap: 12px;
 
-  mask-image: linear-gradient(to right, #000, #000, #00000059);
+  mask-image: linear-gradient(to right, #000, #000, #000000a6);
   z-index: 11;
 
   &::-webkit-scrollbar {

@@ -3,7 +3,7 @@
   flex-direction: column;
   gap: 12px;
 
-  width: 340px;
+  width: 368px;
   padding: 12px;
   padding-bottom: 60px;
   z-index: 9;
@@ -42,5 +42,9 @@
   display: flex;
   gap: 12px;
   overflow: scroll;
-  mask-image: linear-gradient(to right, #000, #000, #00000059);
+  mask-image: linear-gradient(to right, #000, #000, #000000a6);
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
 }

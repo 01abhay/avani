@@ -1,7 +1,44 @@
 .card {
   flex-shrink: 0;
-  width: 164px;
-  height: 208px;
+  width: 148px;
+  padding: 8px;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.8);
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.image {
+  display: flex;
+  width: 100%;
+  margin-bottom: 0px;
   border-radius: 12px;
-  background-color: red;
+}
+
+.name {
+  font-size: 14px;
+  font-weight: 600;
+
+  display: -webkit-box;
+  max-width: 200px;
+  line-clamp: 2;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.price {
+  font-size: 12px;
+}
+
+.button {
+  height: 32px;
+  background: black;
+  color: white;
+  border: 2px solid #d9d9d9;
+  border-radius: 8px;
 }

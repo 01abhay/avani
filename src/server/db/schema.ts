@@ -48,7 +48,7 @@ export const products = createTable('products', {
   description: text('description'),
   price: numeric('price'), // 149, 199, 149, 299, 349, 399, 449, 499, 549, 599, 649, 699, 749, 799
   rating: numeric('rating'), // 1-5
-  images: jsonb('images'),
+  images: jsonb('images').$type<string[]>(),
   createdAt: timestamp('created_at', { withTimezone: true }).default(sql`CURRENT_TIMESTAMP`),
   updatedAt: timestamp('updated_at', { withTimezone: true }).$onUpdate(() => new Date()),
 })

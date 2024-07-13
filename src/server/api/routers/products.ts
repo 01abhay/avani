@@ -4,14 +4,6 @@ import { createTRPCRouter, publicProcedure } from '~/server/api/trpc'
 // import { products } from "~/server/db/schema";
 
 export const productRouter = createTRPCRouter({
-  // hello: publicProcedure
-  //   .input(z.object({ text: z.string() }))
-  //   .query(({ input }) => {
-  //     return {
-  //       greeting: `Hello ${input.text}`,
-  //     };
-  //   }),
-
   // create: publicProcedure
   //   .input(z.object({ name: z.string().min(1) }))
   //   .mutation(async ({ ctx, input }) => {
@@ -27,6 +19,7 @@ export const productRouter = createTRPCRouter({
     return ctx.db.query.products.findMany({
       // orderBy: (posts, { desc }) => [desc(posts.createdAt)],
       limit: 25,
+      columns: { id: true, images: true, name: true, price: true, rating: true },
     })
   }),
 })
