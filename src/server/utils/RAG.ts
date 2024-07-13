@@ -8,7 +8,7 @@ const openai = new OpenAI()
 
 type Functions = Record<string, (payload?: unknown) => Promise<Message>>
 const functions: Functions = {
-  //   greeting: async () => ({ id: Math.random(), role: 'assistant', message: 'Hello from greeting intent!' }) as const,
+  //   greeting: async () => ({ id: Math.random(), role: 'assistant', message: 'Hello from greeting intent!' }),
   search_products: async _payload => {
     const payload = _payload as { query: string; min_price?: number; max_price?: number }
     const _embeddings = await embeddings([payload.query])
@@ -33,6 +33,15 @@ const functions: Functions = {
       message: resp.choices[0]?.message.content ?? '',
       action: 'SUGGEST_PRODUCTS',
       actionData: { products: _products.map(({ description: _ignore, ...p }) => p) },
+    }
+  },
+  display_discount_code: async () => {
+    return {
+      id: Math.random(),
+      role: 'assistant',
+      message: 'We have a special code for you, enjoy your discount!',
+      action: 'DISPLAY_DISCOUNT_CODE',
+      actionData: { code: 'SPECIAL25' },
     }
   },
 }
@@ -68,6 +77,13 @@ const tools: OpenAI.Chat.Completions.ChatCompletionTool[] = [
         },
         required: ['query'],
       },
+    },
+  },
+  {
+    type: 'function',
+    function: {
+      name: 'display_discount_code',
+      description: 'Displays discount code for the user.',
     },
   },
 ]

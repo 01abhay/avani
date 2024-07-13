@@ -7,18 +7,21 @@ const loadingActionDataSchema = z.object({
 
 const suggestProductsActionDataSchema = z.object({
   action: z.literal('SUGGEST_PRODUCTS').optional(),
-  actionData: z
-    .object({
-      products: z.array(
-        z.object({
-          id: z.string(),
-          name: z.string().nullable(),
-          images: z.array(z.string()).nullable(),
-          price: z.string().nullable(),
-        }),
-      ),
-    })
-    .optional(),
+  actionData: z.object({
+    products: z.array(
+      z.object({
+        id: z.string(),
+        name: z.string().nullable(),
+        images: z.array(z.string()).nullable(),
+        price: z.string().nullable(),
+      }),
+    ),
+  }),
+})
+
+const displayDiscountCodeSchema = z.object({
+  action: z.literal('DISPLAY_DISCOUNT_CODE').optional(),
+  actionData: z.object({ code: z.string() }),
 })
 
 const addToCartActionDataSchema = z.object({
@@ -40,6 +43,7 @@ const messageBaseSchema = z.object({
 const messageSchema = z.union([
   messageBaseSchema.merge(loadingActionDataSchema),
   messageBaseSchema.merge(suggestProductsActionDataSchema),
+  messageBaseSchema.merge(displayDiscountCodeSchema),
   messageBaseSchema.merge(addToCartActionDataSchema),
 ])
 

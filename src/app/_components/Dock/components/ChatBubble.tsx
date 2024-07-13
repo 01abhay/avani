@@ -1,5 +1,6 @@
 import React from 'react'
 import clsx from 'clsx'
+import { Copy } from 'lucide-react'
 
 import useChatStore from '../store'
 import style from './ChatBubble.module.css'
@@ -21,7 +22,22 @@ function ChatBubble() {
           )}
 
           {m.action === 'SUGGEST_PRODUCTS' && (
-            <div className={style.productsCarousel}>{m.actionData?.products.map(p => <ProductCard key={p.id} p={p} />)}</div>
+            <div className={style.productsCarousel}>
+              {m.actionData.products.map(p => (
+                <ProductCard key={p.id} p={p} />
+              ))}
+            </div>
+          )}
+          {m.action === 'DISPLAY_DISCOUNT_CODE' && (
+            <div
+              className={style.discountCode}
+              onClick={() => {
+                navigator.clipboard.writeText(m.actionData.code).catch(e => {
+                  console.log('Failed to copy text: ', e)
+                })
+              }}>
+              {m.actionData.code} <Copy />
+            </div>
           )}
         </React.Fragment>
       ))}
