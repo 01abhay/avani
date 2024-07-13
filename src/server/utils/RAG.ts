@@ -8,12 +8,12 @@ const openai = new OpenAI()
 
 type Functions = Record<string, (payload?: unknown) => Promise<Message>>
 const functions: Functions = {
-//   greeting: async () => ({ id: Math.random(), role: 'assistant', message: 'Hello from greeting intent!' }) as const,
+  //   greeting: async () => ({ id: Math.random(), role: 'assistant', message: 'Hello from greeting intent!' }) as const,
   search_products: async _payload => {
-    const payload = _payload as { query: string }
+    const payload = _payload as { query: string; min_price?: number; max_price?: number }
     const _embeddings = await embeddings([payload.query])
     const embedding = _embeddings[0]!.embedding
-    const _products = await getProductsBasedOnSimilarityScore(embedding)
+    const _products = await getProductsBasedOnSimilarityScore(embedding, { minPrice: payload.min_price, maxPrice: payload.max_price })
 
     if (!_products.length) return { id: Math.random(), role: 'assistant', message: 'no product found!' }
 
@@ -57,7 +57,16 @@ const tools: OpenAI.Chat.Completions.ChatCompletionTool[] = [
             type: 'string',
             description: 'Detailed user query for product search, preserving as much context as possible.',
           },
+          min_price: {
+            type: 'number',
+            description: 'Minimum price for the product search.',
+          },
+          max_price: {
+            type: 'number',
+            description: 'Maximum price for the product search.',
+          },
         },
+        required: ['query'],
       },
     },
   },

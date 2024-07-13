@@ -1,42 +1,27 @@
-import { cosineDistance, l1Distance, l2Distance, desc, gt, inArray, sql } from 'drizzle-orm'
+import { cosineDistance, l1Distance, l2Distance, desc, gt, gte, inArray, sql, type SQL, and, lte } from 'drizzle-orm'
+
 import { products, productDescriptionEmbeddings } from '~/server/db/schema'
 import { db } from '../db'
 
-export const getProductsBasedOnSimilarityScore = async (embedding: number[]) => {
-  const similarity1 = sql`1 - (${cosineDistance(productDescriptionEmbeddings.embedding, embedding)})`
-  const similarity2 = sql`1 - (${l1Distance(productDescriptionEmbeddings.embedding, embedding)})`
-  const similarity3 = sql`1 - (${l2Distance(productDescriptionEmbeddings.embedding, embedding)})`
-
-  let productsIds = await db
-    .select({
-      productId: productDescriptionEmbeddings.productId,
-      similarity: similarity1,
-    })
-    .from(productDescriptionEmbeddings)
-    .where(gt(similarity1, 0.1))
-    .orderBy(t => desc(t.similarity))
-    .limit(4)
-  if (!productsIds.length)
-    productsIds = await db
-      .select({
-        productId: productDescriptionEmbeddings.productId,
-        similarity: similarity2,
-      })
-      .from(productDescriptionEmbeddings)
-      .where(gt(similarity2, 0.1))
-      .orderBy(t => desc(t.similarity))
-      .limit(4)
-  if (!productsIds.length)
-    productsIds = await db
-      .select({
-        productId: productDescriptionEmbeddings.productId,
-        similarity: similarity3,
-      })
-      .from(productDescriptionEmbeddings)
-      .where(gt(similarity3, 0.1))
-      .orderBy(t => desc(t.similarity))
-      .limit(4)
-  if (!productsIds.length) return []
+type Attributes = { minPrice?: number; maxPrice?: number }
+export const getProductsBasedOnSimilarityScore = async (embedding: number[], attrs: Attributes) => {
+  let productIds: string[] = []
+  if (attrs.maxPrice ?? attrs.minPrice) {
+    const _products = await db
+      .select({ id: products.id })
+      .from(products)
+      .where(
+        and(
+          attrs.minPrice ? gte(products.price, attrs.minPrice.toString()) : undefined,
+          attrs.maxPrice ? lte(products.price, attrs.maxPrice.toString()) : undefined,
+        ),
+      )
+    productIds = _products.map(p => p.id)
+  }
+  productIds = await sQ(sql`1 - (${cosineDistance(productDescriptionEmbeddings.embedding, embedding)})`, { productIds })
+  if (!productIds.length) productIds = await sQ(sql`1 - (${l1Distance(productDescriptionEmbeddings.embedding, embedding)})`, { productIds })
+  if (!productIds.length) productIds = await sQ(sql`1 - (${l2Distance(productDescriptionEmbeddings.embedding, embedding)})`, { productIds })
+  if (!productIds.length) return []
 
   const _products = await db
     .select({
@@ -47,7 +32,19 @@ export const getProductsBasedOnSimilarityScore = async (embedding: number[]) => 
       price: products.price,
     })
     .from(products)
-    .where(inArray(products.id, productsIds.map(p => p.productId!).filter(Boolean)))
+    .where(inArray(products.id, productIds))
 
   return _products
+}
+
+const sQ = async (similarity: SQL<unknown>, attrs: { productIds?: string[] }) => {
+  const rows = await db
+    .select({ productId: productDescriptionEmbeddings.productId, similarity })
+    .from(productDescriptionEmbeddings)
+    .where(
+      and(gt(similarity, 0.1), attrs.productIds?.length ? inArray(productDescriptionEmbeddings.productId, attrs.productIds) : undefined),
+    )
+    .orderBy(t => desc(t.similarity))
+    .limit(6)
+  return rows.map(r => r.productId!).filter(Boolean)
 }
