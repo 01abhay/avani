@@ -1,5 +1,7 @@
 import OpenAI from 'openai'
 
+import { systemPrompt } from '../constants/pilgrim'
+
 const openai = new OpenAI()
 
 export const embeddings = async (input: string[]) => {
@@ -34,12 +36,6 @@ export const vision = async (text: string, image_urls: string[]) => {
 }
 
 export const completion = (messages: { role: 'user' | 'assistant' | 'system'; content: string }[] = []) => {
-  const systemPrompt = `You are a sales agent on an e-commerce platform, your job is to reply to customer queries just as a real life sales agent would.
-    You will be given relevant info about the products and policies if and when required to be used to answer a query appropriately.
-    you must try to reply within 120 words.
-
-    please respond in plain text instead of markdown format.`
-
   return openai.chat.completions.create({
     model: 'gpt-3.5-turbo-0125',
     messages: [{ role: 'system', content: systemPrompt }, ...messages],

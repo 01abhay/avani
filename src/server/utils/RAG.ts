@@ -1,8 +1,9 @@
 import OpenAI from 'openai'
 
 import { type Message } from '../types'
-import { embeddings, completion as _completion } from './openai'
+import { privacyPolicy, refundPolicy, shippingAndReturnPolicy, systemPrompt, termsAndConditions } from '../constants/pilgrim'
 import { getProductsBasedOnSimilarityScore } from './db'
+import { embeddings, completion as _completion } from './openai'
 
 const openai = new OpenAI()
 
@@ -43,6 +44,30 @@ const functions: Functions = {
       action: 'DISPLAY_DISCOUNT_CODE',
       actionData: { code: 'SPECIAL25' },
     }
+  },
+  get_shop_policies: async _payload => {
+    const payload = _payload as {
+      query: string
+      policies: ('shippingAndReturnPolicy' | 'termsAndConditions' | 'privacyPolicy' | 'refundPolicy')[]
+    }
+    let content = ''
+    if (payload?.policies.includes('shippingAndReturnPolicy')) content += shippingAndReturnPolicy
+    if (payload?.policies.includes('termsAndConditions')) content += termsAndConditions
+    if (payload?.policies.includes('privacyPolicy')) content += privacyPolicy
+    if (payload?.policies.includes('refundPolicy')) content += refundPolicy
+
+    const resp = await _completion([
+      { role: 'user', content: payload.query },
+      {
+        role: 'system',
+        content: `${content}
+
+        ---- answer user query from above text content. if no relevant answer polity let user know, try to limit the response character length 480 or less. don't make up any new information try to answer from information you already have.`,
+      },
+    ])
+
+    console.log(resp)
+    return { id: Math.random(), role: 'assistant', message: resp.choices[0]?.message.content ?? '' }
   },
 }
 
@@ -86,15 +111,29 @@ const tools: OpenAI.Chat.Completions.ChatCompletionTool[] = [
       description: 'Displays discount code for the user.',
     },
   },
+  {
+    type: 'function',
+    function: {
+      name: 'get_shop_policies',
+      description:
+        "Gets shop policies based on values in a JavaScript array of one or more of these values: 'shippingAndReturnPolicy', 'termsAndConditions', 'privacyPolicy', 'refundPolicy'.",
+      parameters: {
+        type: 'object',
+        properties: {
+          policies: {
+            type: 'array',
+            items: {
+              type: 'string',
+              description: "One or more of these values: 'shippingAndReturnPolicy', 'termsAndConditions', 'privacyPolicy', 'refundPolicy'.",
+            },
+          },
+        },
+      },
+    },
+  },
 ]
 
 export const completion = async (messages: { role: 'system' | 'assistant' | 'user'; content: string }[]): Promise<Message> => {
-  const systemPrompt = `You are a sales agent on an e-commerce platform, your job is to reply to customer queries just as a real life sales agent would.
-    You will be given relevant info about the products and policies if and when required to be used to answer a query appropriately.
-    you must try to reply within 120 words.
-
-    please respond in plain text instead of markdown format.`
-
   const resp = await openai.chat.completions.create({
     model: 'gpt-3.5-turbo-0125',
     messages: [{ role: 'system', content: systemPrompt }, ...messages],
@@ -106,16 +145,15 @@ export const completion = async (messages: { role: 'system' | 'assistant' | 'use
   const topChoice = resp.choices[0]
   if (topChoice?.finish_reason === 'tool_calls') {
     const topToolCall = topChoice.message.tool_calls?.[0]
-    if (!topToolCall?.function) return { id: Math.random(), role: 'assistant', message: 'Something went wrong!' }
-
-    console.log('Tool call: ', topToolCall)
-    return (
-      (await functions[topToolCall?.function.name]?.(JSON.parse(topToolCall?.function.arguments))) ?? {
-        id: Math.random(),
-        role: 'assistant',
-        message: 'Something went wrong!',
-      }
-    )
+    if (!topToolCall?.function) return { id: Math.random(), role: 'assistant', message: 'Something went wrong! (Code: 11200)' }
+    const funcName = topToolCall?.function.name
+    const payload = JSON.parse(topToolCall?.function.arguments) as Record<string, unknown>
+    if (funcName) {
+      if (funcName === 'get_shop_policies') payload.query = messages.at(-1)?.content
+      return (
+        (await functions[funcName]?.(payload)) ?? { id: Math.random(), role: 'assistant', message: 'Something went wrong! (Code: 11201)' }
+      )
+    }
   }
   if (topChoice?.finish_reason === 'stop') {
     return { id: Math.random(), role: 'assistant', message: topChoice.message.content! }
