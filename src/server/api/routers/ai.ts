@@ -1,44 +1,48 @@
 import { z } from 'zod'
 
-import { cosineDistance, desc, gt, inArray, sql } from 'drizzle-orm'
+import { cosineDistance, l1Distance, l2Distance, desc, gt, inArray, sql } from 'drizzle-orm'
 import { createTRPCRouter, publicProcedure } from '~/server/api/trpc'
 import { embeddings, completion } from '~/server/utils/openai'
 import { products, productDescriptionEmbeddings } from '~/server/db/schema'
 
 export const aiRouter = createTRPCRouter({
-  // hello: publicProcedure
-  //   .input(z.object({ text: z.string() }))
-  //   .query(({ input }) => {
-  //     return {
-  //       greeting: `Hello ${input.text}`,
-  //     };
-  //   }),
-
-  // create: publicProcedure
-  //   .input(z.object({ name: z.string().min(1) }))
-  //   .mutation(async ({ ctx, input }) => {
-  //     // simulate a slow db call
-  //     await new Promise((resolve) => setTimeout(resolve, 1000));
-
-  //     await ctx.db.insert(posts).values({
-  //       name: input.name,
-  //     });
-  //   }),
-
-  getProductSuggestion: publicProcedure.input(z.object({ message: z.string().min(1) })).query(async ({ ctx }) => {
-    const _embeddings = await embeddings(['Squalene product'])
+  getProductSuggestion: publicProcedure.input(z.object({ message: z.string().min(1) })).query(async ({ input, ctx }) => {
+    const _embeddings = await embeddings([input.message])
     const embedding = _embeddings[0]!.embedding
-    const similarity = sql`1 - (${cosineDistance(productDescriptionEmbeddings.embedding, embedding)})`
+    const similarity1 = sql`1 - (${cosineDistance(productDescriptionEmbeddings.embedding, embedding)})`
+    const similarity2 = sql`1 - (${l1Distance(productDescriptionEmbeddings.embedding, embedding)})`
+    const similarity3 = sql`1 - (${l1Distance(productDescriptionEmbeddings.embedding, embedding)})`
 
-    const productsIds = await ctx.db
+    let productsIds = await ctx.db
       .select({
         productId: productDescriptionEmbeddings.productId,
-        similarity,
+        similarity: similarity1,
       })
       .from(productDescriptionEmbeddings)
-      .where(gt(similarity, 0.5))
+      .where(gt(similarity1, 0.1))
       .orderBy(t => desc(t.similarity))
       .limit(4)
+    if (!productsIds.length)
+      productsIds = await ctx.db
+        .select({
+          productId: productDescriptionEmbeddings.productId,
+          similarity: similarity2,
+        })
+        .from(productDescriptionEmbeddings)
+        .where(gt(similarity2, 0.1))
+        .orderBy(t => desc(t.similarity))
+        .limit(4)
+    if (!productsIds.length)
+      productsIds = await ctx.db
+        .select({
+          productId: productDescriptionEmbeddings.productId,
+          similarity: similarity3,
+        })
+        .from(productDescriptionEmbeddings)
+        .where(gt(similarity3, 0.1))
+        .orderBy(t => desc(t.similarity))
+        .limit(4)
+    if (!productsIds.length) return { content: 'no product found', products: [] }
 
     const _products = await ctx.db
       .select({

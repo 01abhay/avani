@@ -1,0 +1,38 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+
+  min-width: 360px;
+  padding: 12px;
+  padding-bottom: 60px;
+  z-index: 9;
+
+  &:first-child {
+    margin-top: auto;
+  }
+}
+
+.bubble {
+  width: 76%;
+  background: rgba(255, 255, 255, 0.8);
+  padding: 12px 16px 4px 16px;
+
+  border-radius: 16px;
+
+  &.left {
+    align-self: flex-start;
+    border-bottom-left-radius: 0px;
+  }
+
+  &.right {
+    align-self: flex-end;
+    border-bottom-right-radius: 0px;
+  }
+}
+
+.time {
+  font-size: 11px;
+  color: #9f9f9f;
+  text-align: right;
+}

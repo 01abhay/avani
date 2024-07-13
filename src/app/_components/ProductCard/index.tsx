@@ -10,7 +10,7 @@ export function ProductCard({ p }: { p: ProductRowSelect }) {
     <div className={styles.card}>
       <img src={(p.images as string[])[0]} alt={p.name!} style={{ width: '100%' }} />
       <p>{p.name}</p>
-      <p>{p.price}</p>
+      <p>₹ {p.price}</p>
     </div>
   )
 }
