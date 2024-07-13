@@ -5,8 +5,14 @@
 
   width: 368px;
   padding: 12px;
-  padding-bottom: 60px;
+  margin-bottom: 48px;
   z-index: 9;
+
+  overflow: scroll;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
 
   &:first-child {
     margin-top: auto;
@@ -38,12 +44,12 @@
 }
 
 .productsCarousel {
-  flex: 1;
+  flex-shrink: 0;
   display: flex;
   gap: 12px;
-  overflow: scroll;
   mask-image: linear-gradient(to right, #000, #000, #000000a6);
 
+  overflow: scroll;
   &::-webkit-scrollbar {
     display: none;
   }
