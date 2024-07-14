@@ -11,7 +11,10 @@ export const aiRouter = createTRPCRouter({
     .output(messageSchema)
     .query(async ({ input }) => {
       return await completion(
-        input.map(m => ({ role: m.role, content: JSON.stringify({ message: m.message, action: m.action, actionData: m.actionData }) })),
+        input.map(m => ({
+          role: m.role,
+          content: `${m.message} | action taken: ${m.action} | action data: ${JSON.stringify(m.actionData)}`,
+        })),
       )
     }),
 })

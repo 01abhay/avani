@@ -32,7 +32,7 @@ const Bubble = ({ m, last }: { m: Message; last: boolean }) => {
       <div ref={ref} />
       {(m.message ?? m.action === 'LOADING') && (
         <div className={clsx(style.bubble, m.role === 'user' ? style.left : style.right)}>
-          {m.message ? m.message : ''}
+          {m.message ? m.message.replaceAll('**','') : ''}
           {m.action === 'LOADING' ? 'Loading...' : ''}
           <div className={style.time}>12:46 PM</div>
         </div>
