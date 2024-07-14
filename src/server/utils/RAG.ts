@@ -4,6 +4,7 @@ import { type Message } from '../types'
 import { privacyPolicy, refundPolicy, shippingAndReturnPolicy, systemPrompt, termsAndConditions } from '../constants/pilgrim'
 import { getProductsBasedOnSimilarityScore } from './db'
 import { embeddings, completion as _completion } from './openai'
+import getPromptSuggestions from './RAG/prompt-suggestion'
 
 const openai = new OpenAI()
 
@@ -65,8 +66,6 @@ const functions: Functions = {
         ---- answer user query from above text content. if no relevant answer polity let user know, try to limit the response character length 480 or less. don't make up any new information try to answer from information you already have.`,
       },
     ])
-
-    console.log(resp)
     return { id: Math.random(), role: 'assistant', message: resp.choices[0]?.message.content ?? '' }
   },
 }
@@ -133,7 +132,7 @@ const tools: OpenAI.Chat.Completions.ChatCompletionTool[] = [
   },
 ]
 
-export const completion = async (messages: { role: 'system' | 'assistant' | 'user'; content: string }[]): Promise<Message> => {
+const ___completion = async (messages: { role: 'system' | 'assistant' | 'user'; content: string }[]): Promise<Message> => {
   const resp = await openai.chat.completions.create({
     model: 'gpt-3.5-turbo-0125',
     messages: [{ role: 'system', content: systemPrompt }, ...messages],
@@ -160,4 +159,14 @@ export const completion = async (messages: { role: 'system' | 'assistant' | 'use
   }
 
   return { id: Math.random(), role: 'assistant', message: JSON.stringify(resp.choices[0]) }
+}
+
+export const completion = async (messages: { role: 'system' | 'assistant' | 'user'; content: string }[]): Promise<Message> => {
+  const resp = await ___completion(messages)
+
+  const promptSuggestions = await getPromptSuggestions([
+    { role: 'user', content: messages.at(-1)!.content },
+    { role: 'assistant', content: resp.message! },
+  ])
+  return { ...resp, promptSuggestions }
 }

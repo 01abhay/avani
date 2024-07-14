@@ -38,6 +38,7 @@ const messageBaseSchema = z.object({
   id: z.number(),
   role: z.union([z.literal('assistant'), z.literal('user')]),
   message: z.string().optional(),
+  promptSuggestions: z.array(z.string()).optional().nullable(),
 })
 
 const messageSchema = z.union([
