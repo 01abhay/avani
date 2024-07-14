@@ -1,9 +1,11 @@
 import '~/styles/globals.css'
 
-import { GeistSans } from 'geist/font/sans'
+import { Poppins } from 'next/font/google'
 import { type Metadata } from 'next'
 
 import { TRPCReactProvider } from '~/trpc/react'
+
+const poppins = Poppins({ weight: ['400', '500', '700'], subsets: ['latin'] })
 
 export const metadata: Metadata = {
   title: 'Avani AI',
@@ -22,7 +24,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         <meta name='msapplication-TileColor' content='#da532c' />
         <meta name='theme-color' content='#ffffff' />
       </head>
-      <body className={GeistSans.className}>
+      <body className={poppins.className}>
         <TRPCReactProvider>{children}</TRPCReactProvider>
       </body>
     </html>

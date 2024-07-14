@@ -15,6 +15,16 @@ export const aiRouter = createTRPCRouter({
         .map(m => `${m.message} | action taken: ${m.action} | action data: ${JSON.stringify(m.actionData)}`)
         .join('\n')
 
+      if (message.action === 'ADD_TO_CART') {
+        return {
+          id: Math.random(),
+          role: 'assistant',
+          message: `Your cart has been updated! 🎉\nThank you!`,
+          action: 'ADD_TO_CART',
+          actionData: { productId: message.actionData?.productId },
+        }
+      }
+
       return await completion([
         {
           role: 'system',
