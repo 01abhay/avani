@@ -22,8 +22,8 @@ function LeftSidebar() {
   }
 
   return (
-    <div>
-      <div className={style.title}>PureElegance</div>
+    <>
+      <div className={style.title}>PureElegance®</div>
       <div className={style.subtitle}>Powered by Avani</div>
 
       <div className={style.prompts}>
@@ -44,7 +44,7 @@ function LeftSidebar() {
           <div>What is your Return Policy?</div>
         </div>
       </div>
-    </div>
+    </>
   )
 }
 

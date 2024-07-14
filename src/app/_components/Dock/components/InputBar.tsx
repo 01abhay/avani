@@ -11,6 +11,7 @@ function InputBar() {
   const utils = api.useUtils()
 
   const [query, setQuery] = useState('')
+  const [loading, setLoading] = useState(false)
   const [error, setError] = useState(false)
   useEffect(() => {
     let timerId: NodeJS.Timeout
@@ -28,6 +29,7 @@ function InputBar() {
     e.preventDefault()
     if (query.length > 160) return setError(true)
 
+    setLoading(true)
     addMessages([
       { id: Math.random(), role: 'user', message: query },
       { id: Math.random(), role: 'assistant', action: 'LOADING' },
@@ -38,10 +40,11 @@ function InputBar() {
       .fetch(useChatStore.getState().messages.slice(-5, -1))
       .then(res => addMessages([res], true))
       .catch(() => addMessages([{ id: Math.random(), role: 'assistant', message: 'Something went wrong!' }], true))
+      .finally(() => setLoading(false))
   }
 
   return (
-    <div className={clsx(style.container, error && style.errored)}>
+    <div className={clsx(style.container, error && style.errored, loading && style.skeleton)}>
       <div className={style.button}>
         <Mic />
       </div>

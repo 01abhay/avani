@@ -27,12 +27,13 @@ function ChatContainer() {
 
   return (
     <div className={style.container}>
-      <div>
+      <div className={style.sidebar}>
         <LeftSidebar />
       </div>
-      <div className={style.chats}>
-        <div className={style.main}>
-          <div className={style.chat}>
+
+      <div className={style.main}>
+        <div className={style.chats}>
+          <div className={style.chatsContainer}>
             <ChatBubble />
           </div>
           <div className={style.avatarContainer}>

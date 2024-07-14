@@ -27,7 +27,7 @@ const functions: Functions = {
       {
         role: 'system',
         content: `Here is the JSON of products found in vector search:
-        ${JSON.stringify(_products)}
+        ${JSON.stringify(_products.map(p => ({ name: p.name, description: p.description })))}
 
         ---- based on user query recommend on ore more of these to the customer. do not list or describe products unless user asked,
         try to keep each products description under 30 words if replying with description.`,

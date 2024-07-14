@@ -7,6 +7,7 @@
 }
 
 .productsContainer {
+  padding-top: 72px;
   display: flex;
   gap: 24px;
   flex-wrap: wrap;

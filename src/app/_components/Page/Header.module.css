@@ -5,4 +5,10 @@
   margin: auto;
   align-items: center;
   justify-content: space-between;
+
+  position: sticky;
+  top: 0;
+  background: white;
+  border-radius: 12px;
+  padding: 4px 16px;
 }

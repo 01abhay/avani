@@ -23,7 +23,9 @@ const tools: OpenAI.Chat.Completions.ChatCompletionTool[] = [
             items: {
               type: 'string',
               description:
-                'generate suggestive prompts based on available store information and user queries that can be helpful for a user. keep them as short as possible & not exceeding 15 character in length.',
+                `generate suggestive prompts based on only the available store information(only show for products,faq, policies, offers),
+                 and user queries that can be helpful for a user and that the agent can answer and resolve. keep them as short as possible & not exceeding 15 character in length.
+                 if for previous query there was no product then don't suggest prompt for same product`,
             },
           },
         },

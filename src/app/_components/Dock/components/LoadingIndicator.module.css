@@ -1,0 +1,41 @@
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px;
+
+  .loader {
+    width: 8px;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    animation: f8rd2 1s infinite linear alternate;
+    opacity: 0.5;
+  }
+}
+
+@keyframes f8rd2 {
+  0% {
+    box-shadow:
+      12px 0 #000,
+      -12px 0 #0002;
+    background: #000;
+  }
+  33% {
+    box-shadow:
+      12px 0 #000,
+      -12px 0 #0002;
+    background: #0002;
+  }
+  66% {
+    box-shadow:
+      12px 0 #0002,
+      -12px 0 #000;
+    background: #0002;
+  }
+  100% {
+    box-shadow:
+      12px 0 #0002,
+      -12px 0 #000;
+    background: #000;
+  }
+}

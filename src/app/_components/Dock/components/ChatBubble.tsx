@@ -1,11 +1,13 @@
 import React, { useEffect, useRef } from 'react'
 import clsx from 'clsx'
 import { Copy } from 'lucide-react'
+import { motion } from 'framer-motion'
 
 import type { Message } from '~/server/types'
 import useChatStore from '../store'
 import style from './ChatBubble.module.css'
 import ProductCard from './ProductCard'
+import LoadingIndicator from './LoadingIndicator'
 
 function ChatBubble() {
   const messages = useChatStore(s => s.messages)
@@ -31,22 +33,33 @@ const Bubble = ({ m, last }: { m: Message; last: boolean }) => {
     <React.Fragment key={m.id}>
       <div ref={ref} />
       {(m.message ?? m.action === 'LOADING') && (
-        <div className={clsx(style.bubble, m.role === 'user' ? style.left : style.right)}>
-          {m.message ? m.message.replaceAll('**','') : ''}
-          {m.action === 'LOADING' ? 'Loading...' : ''}
-          <div className={style.time}>12:46 PM</div>
-        </div>
+        <motion.div
+          initial={{ opacity: 0.4, y: 6 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4 }}
+          className={clsx(style.bubble, m.role === 'user' ? style.left : style.right)}>
+          {m.message ? m.message.replaceAll('**', '') : ''}
+          {m.action === 'LOADING' ? <LoadingIndicator /> : ''}
+          <div className={style.time}>{new Date().toLocaleString('en-IN', { hour: 'numeric', minute: 'numeric', hour12: true })}</div>
+        </motion.div>
       )}
 
       {m.action === 'SUGGEST_PRODUCTS' && (
-        <div className={style.productsCarousel}>
+        <motion.div
+          initial={{ opacity: 0.4, y: 6 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4 }}
+          className={style.productsCarousel}>
           {m.actionData.products.map(p => (
             <ProductCard key={p.id} p={p} />
           ))}
-        </div>
+        </motion.div>
       )}
       {m.action === 'DISPLAY_DISCOUNT_CODE' && (
-        <div
+        <motion.div
+          initial={{ opacity: 0.4, y: 6 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4 }}
           className={style.discountCode}
           onClick={() => {
             navigator.clipboard.writeText(m.actionData.code).catch(e => {
@@ -54,7 +67,7 @@ const Bubble = ({ m, last }: { m: Message; last: boolean }) => {
             })
           }}>
           {m.actionData.code} <Copy />
-        </div>
+        </motion.div>
       )}
     </React.Fragment>
   )
