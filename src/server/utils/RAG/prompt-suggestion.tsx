@@ -23,7 +23,7 @@ const tools: OpenAI.Chat.Completions.ChatCompletionTool[] = [
             items: {
               type: 'string',
               description:
-                'act as user, think and return possible prompts based on available store information, user query and previous assistant response. keep the character length less than 18.',
+                'generate suggestive prompts based on available store information and user queries that can be helpful for a user. keep them as short as possible & not exceeding 15 character in length.',
             },
           },
         },

@@ -10,11 +10,19 @@ export const aiRouter = createTRPCRouter({
     .input(z.array(messageSchema))
     .output(messageSchema)
     .query(async ({ input }) => {
-      return await completion(
-        input.map(m => ({
-          role: m.role,
-          content: `${m.message} | action taken: ${m.action} | action data: ${JSON.stringify(m.actionData)}`,
-        })),
-      )
+      const [context, message] = [input.slice(-1), input.at(-1)!]
+      const contextText = context
+        .map(m => `${m.message} | action taken: ${m.action} | action data: ${JSON.stringify(m.actionData)}`)
+        .join('\n')
+
+      return await completion([
+        {
+          role: 'system',
+          content: `here is the previous conversation history in order:
+
+          ${contextText}`,
+        },
+        { role: message.role, content: message.message! },
+      ])
     }),
 })

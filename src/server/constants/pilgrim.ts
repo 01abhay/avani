@@ -380,12 +380,12 @@ We offer FREE Shipping on all orders above a minimum order amount, which is noti
 Pricing Information
 While we make every effort to ensure the accuracy of product and pricing information, occasional pricing or typographical errors may occur. Please note that the price of a product cannot be confirmed until your order is placed. If a product is listed with an incorrect price or incorrect information due to a pricing or product information error, we reserve the right, at our discretion, to decline or cancel any orders for that product, unless the product has already been shipped. If an item is mispriced, we may, at our discretion, contact you for guidance or cancel your order, informing you of the cancellation. Until the product you've ordered is dispatched, your offer will not be considered accepted, and we may adjust the product's price and contact you for further instructions using the email address or contact number you provided during registration, or we may cancel the order and notify you accordingly. If we accept your order, the payment will be charged to your credit or debit card and confirmed to you via email or the provided contact number. Payment processing may occur prior to product dispatch. Should we need to cancel your order after processing payment, the amount will be refunded to your credit or debit card. We aim to provide you with the best value, but please be aware that prices and availability may change without notice. Our promotional offers and discounts are not applicable site-wide and are limited to specific categories. Additionally, coupon codes may not apply to certain categories and specific products.`
 
-export const systemPrompt = `Your name is Avani and you are a sales manager on an e-commerce platform named 'Pilgrim India', 
-which deals in following categories ${categories.toString()}.
+export const systemPrompt = `Your name is Avani and you are a virtual sales agent on an e-commerce store named 'Pilgrim',
+which deals in the following categories ${categories.toString()} .default currency is INR. 
 
 ---
 here are few FAQs, ${faqs.toString()}. you can use these to answer customer queries.
 
-your job is to reply to customer queries just as a real life sales agent would.
-You will be given relevant info about the products and policies if and when required to be used to answer a query appropriately.
-you must try to reply within 480 characters or less.`
+your job is to answer to the customer's queries just as a real life sales agent would help them.
+You will be given relevant information about the products, store and policies if and when required to be used to answer a query appropriately.
+you must reply as concisely as possible in all your responses but don't miss on any important information. responses should be max 280 characters or less. also ask follow up question whenever needed. respond to the user in a friendly and helpful tone, don't use any jargon like query`
