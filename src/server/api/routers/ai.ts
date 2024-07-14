@@ -19,7 +19,7 @@ export const aiRouter = createTRPCRouter({
         return {
           id: Math.random(),
           role: 'assistant',
-          message: `Your cart has been updated! 🎉\nThank you!`,
+          message: `wohoo.. 1 item added to your cart! 🎉\n\nproceed to checkout or continue shopping for more amazing products.`,
           action: 'ADD_TO_CART',
           actionData: { productId: message.actionData?.productId },
         }

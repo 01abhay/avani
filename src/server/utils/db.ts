@@ -3,7 +3,7 @@ import { cosineDistance, l1Distance, l2Distance, desc, gt, gte, inArray, sql, ty
 import { products, productDescriptionEmbeddings } from '~/server/db/schema'
 import { db } from '../db'
 
-type Attributes = { minPrice?: number; maxPrice?: number }
+type Attributes = { minPrice?: number; maxPrice?: number; limit?: number }
 export const getProductsBasedOnSimilarityScore = async (embedding: number[], attrs: Attributes) => {
   let productIds: string[] = []
   if (attrs.maxPrice ?? attrs.minPrice) {
@@ -18,9 +18,11 @@ export const getProductsBasedOnSimilarityScore = async (embedding: number[], att
       )
     productIds = _products.map(p => p.id)
   }
-  productIds = await sQ(sql`1 - (${cosineDistance(productDescriptionEmbeddings.embedding, embedding)})`, { productIds })
-  if (!productIds.length) productIds = await sQ(sql`1 - (${l1Distance(productDescriptionEmbeddings.embedding, embedding)})`, { productIds })
-  if (!productIds.length) productIds = await sQ(sql`1 - (${l2Distance(productDescriptionEmbeddings.embedding, embedding)})`, { productIds })
+  productIds = await sQ(sql`1 - (${cosineDistance(productDescriptionEmbeddings.embedding, embedding)})`, { productIds, limit: attrs.limit })
+  if (!productIds.length)
+    productIds = await sQ(sql`1 - (${l1Distance(productDescriptionEmbeddings.embedding, embedding)})`, { productIds, limit: attrs.limit })
+  if (!productIds.length)
+    productIds = await sQ(sql`1 - (${l2Distance(productDescriptionEmbeddings.embedding, embedding)})`, { productIds, limit: attrs.limit })
   if (!productIds.length) return []
 
   const _products = await db
@@ -37,7 +39,7 @@ export const getProductsBasedOnSimilarityScore = async (embedding: number[], att
   return _products
 }
 
-const sQ = async (similarity: SQL<unknown>, attrs: { productIds?: string[] }) => {
+const sQ = async (similarity: SQL<unknown>, attrs: { productIds?: string[]; limit?: number }) => {
   const rows = await db
     .select({ productId: productDescriptionEmbeddings.productId, similarity })
     .from(productDescriptionEmbeddings)
@@ -45,6 +47,6 @@ const sQ = async (similarity: SQL<unknown>, attrs: { productIds?: string[] }) =>
       and(gt(similarity, 0.1), attrs.productIds?.length ? inArray(productDescriptionEmbeddings.productId, attrs.productIds) : undefined),
     )
     .orderBy(t => desc(t.similarity))
-    .limit(6)
+    .limit(attrs.limit ?? 6)
   return rows.map(r => r.productId!).filter(Boolean)
 }

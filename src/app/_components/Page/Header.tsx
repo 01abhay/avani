@@ -10,7 +10,7 @@ function Header() {
 
   return (
     <div className={style.header}>
-      <h3>Brand Name</h3>
+      <h3>PureElegance</h3>
 
       <div>
         <ShoppingCart />({count || 0})

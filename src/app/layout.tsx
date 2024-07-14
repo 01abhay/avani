@@ -8,8 +8,8 @@ import { TRPCReactProvider } from '~/trpc/react'
 const poppins = Poppins({ weight: ['400', '500', '700'], subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'Avani AI',
-  description: 'Shopping agent',
+  title: 'PureElegance: powered by Avani AI',
+  description: 'The beauty store',
 }
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {

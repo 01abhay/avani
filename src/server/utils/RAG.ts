@@ -12,10 +12,14 @@ type Functions = Record<string, (payload?: unknown) => Promise<Message>>
 const functions: Functions = {
   //   greeting: async () => ({ id: Math.random(), role: 'assistant', message: 'Hello from greeting intent!' }),
   search_products: async _payload => {
-    const payload = _payload as { query: string; min_price?: number; max_price?: number }
+    const payload = _payload as { query: string; min_price?: number; max_price?: number; limit?: number }
     const _embeddings = await embeddings([payload.query])
     const embedding = _embeddings[0]!.embedding
-    const _products = await getProductsBasedOnSimilarityScore(embedding, { minPrice: payload.min_price, maxPrice: payload.max_price })
+    const _products = await getProductsBasedOnSimilarityScore(embedding, {
+      minPrice: payload.min_price,
+      maxPrice: payload.max_price,
+      limit: payload.limit,
+    })
 
     if (!_products.length) return { id: Math.random(), role: 'assistant', message: 'no product found!' }
 
@@ -97,6 +101,10 @@ const tools: OpenAI.Chat.Completions.ChatCompletionTool[] = [
           max_price: {
             type: 'number',
             description: 'Maximum price for the product search.',
+          },
+          limit: {
+            type: 'number',
+            description: 'number of products user wants to see. max 6.',
           },
         },
         required: ['query'],
