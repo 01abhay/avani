@@ -19,7 +19,8 @@ function ChatContainer() {
       { id: Math.random(), role: 'assistant', action: 'LOADING' },
     ])
     utils.ai.getAiResponse
-      .fetch({ message: m })
+      // .fetch({ message: m })
+      .fetch(useChatStore.getState().messages.slice(-5))
       .then(res => addMessages([res], true))
       .catch(() => addMessages([{ id: Math.random(), role: 'assistant', message: 'Something went wrong!' }], true))
   }

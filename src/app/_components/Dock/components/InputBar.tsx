@@ -20,7 +20,8 @@ function InputBar() {
     ])
     form.reset()
     utils.ai.getAiResponse
-      .fetch({ message })
+      // .fetch({ message })
+      .fetch(useChatStore.getState().messages.slice(-5))
       .then(res => addMessages([res], true))
       .catch(() => addMessages([{ id: Math.random(), role: 'assistant', message: 'Something went wrong!' }], true))
   }
