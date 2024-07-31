@@ -1,14 +1,5 @@
-.title {
-  font-size: 18px;
-  font-weight: 500;
-}
-
-.subtitle {
-  font-size: 14px;
-}
-
 .prompts {
-  margin-top: 32px;
+  /* margin-top: 32px; */
   display: flex;
   gap: 12px;
   flex-direction: column;

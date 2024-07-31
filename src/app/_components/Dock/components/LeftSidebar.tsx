@@ -23,9 +23,6 @@ function LeftSidebar() {
 
   return (
     <>
-      <div className={style.title}>PureElegance®</div>
-      <div className={style.subtitle}>Powered by Avani</div>
-
       <div className={style.prompts}>
         <div className={style.prompt} onClick={() => handleSubmit('Show your Bestsellers')}>
           <Award />

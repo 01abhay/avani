@@ -1,4 +1,6 @@
 .container {
+  transition: all 340ms;
+
   position: fixed;
   right: 20px;
   bottom: 20px;
@@ -7,7 +9,7 @@
   width: calc(100% - (2 * 20px));
   max-width: 720px;
   height: calc(100% - (2 * 20px));
-  max-height: 560px;
+  max-height: 540px;
 
   padding: 12px;
   border-radius: 20px;
@@ -18,6 +20,22 @@
 
   display: flex;
   gap: 8px;
+
+  &.closed {
+    max-width: 196px;
+    max-height: 260px;
+
+    .avatar {
+      margin-left: -16px;
+      margin-right: 0px;
+      margin-bottom: -12px;
+    }
+  }
+
+  &.open {
+    max-width: 540px;
+    max-height: 500px;
+  }
 }
 
 .sidebar {
@@ -43,7 +61,7 @@
 }
 
 .chatsContainer {
-  flex: 4;
+  flex: 5;
   min-width: 0px;
   display: flex;
   flex-direction: column;
@@ -61,9 +79,29 @@
   }
 }
 
+.hidden {
+  display: none;
+}
+
+.pointer {
+  cursor: pointer;
+}
+
+.title {
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.subtitle {
+  font-size: 14px;
+}
+
 .avatar {
-  margin-right: -28px;
+  margin-left: -28px;
+  margin-right: -48px;
+  transform: scalex(-1);
   filter: drop-shadow(0px -4px 8px #00000037);
+  max-width: 280px;
 }
 
 .inputBarContainer {
@@ -75,6 +113,8 @@
   bottom: calc(100% + 12px);
   right: 0;
   left: 0;
+  padding: 20px;
+  margin: -20px;
 
   overflow: scroll;
   display: flex;

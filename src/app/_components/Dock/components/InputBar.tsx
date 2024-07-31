@@ -27,7 +27,7 @@ function InputBar() {
 
   const handleSubmit: React.FormEventHandler<HTMLFormElement> = e => {
     e.preventDefault()
-    if (query.length > 160) return setError(true)
+    if (query.length > 160 || query.length < 1) return setError(true)
 
     setLoading(true)
     addMessages([

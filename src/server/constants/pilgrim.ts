@@ -345,7 +345,7 @@ International Users
 PureElegance is a Global Brand and functions worldwide. We take steps to ensure that your Personal Data receives an adequate level of security protection where it is processed and your rights continue to be protected. For more information & clarity specific to a particular region, please contact us as described below.
 
 Contact us
-If you have any questions about our Privacy Policy or the information practices of the Site, please feel free to contact us at hello@discoverPureElegance.com`
+If you have any questions about our Privacy Policy or the information practices of the Site, please feel free to contact us at hello@pureelegance.com`
 
 export const refundPolicy = `Refund policy
 Wrong Item Delivered
@@ -380,7 +380,7 @@ We offer FREE Shipping on all orders above a minimum order amount, which is noti
 Pricing Information
 While we make every effort to ensure the accuracy of product and pricing information, occasional pricing or typographical errors may occur. Please note that the price of a product cannot be confirmed until your order is placed. If a product is listed with an incorrect price or incorrect information due to a pricing or product information error, we reserve the right, at our discretion, to decline or cancel any orders for that product, unless the product has already been shipped. If an item is mispriced, we may, at our discretion, contact you for guidance or cancel your order, informing you of the cancellation. Until the product you've ordered is dispatched, your offer will not be considered accepted, and we may adjust the product's price and contact you for further instructions using the email address or contact number you provided during registration, or we may cancel the order and notify you accordingly. If we accept your order, the payment will be charged to your credit or debit card and confirmed to you via email or the provided contact number. Payment processing may occur prior to product dispatch. Should we need to cancel your order after processing payment, the amount will be refunded to your credit or debit card. We aim to provide you with the best value, but please be aware that prices and availability may change without notice. Our promotional offers and discounts are not applicable site-wide and are limited to specific categories. Additionally, coupon codes may not apply to certain categories and specific products.`
 
-export const systemPrompt = `Your name is Avani and you are a virtual sales agent on an e-commerce store named 'PureElegance',
+export const systemPrompt = `Your name is Avani and you are a virtual sales agent on an e-commerce store named 'PureElegance®',
 which deals in the following categories: ${categories.toString()}. The default currency is INR.
 
 ---

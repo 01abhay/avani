@@ -37,7 +37,7 @@ const Bubble = ({ m, last }: { m: Message; last: boolean }) => {
           initial={{ opacity: 0.4, y: 6 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.4 }}
-          className={clsx(style.bubble, m.role === 'user' ? style.left : style.right)}>
+          className={clsx(style.bubble, m.role === 'user' ? style.right : style.left)}>
           {m.message ? m.message.replaceAll('**', '') : ''}
           {m.action === 'LOADING' ? <LoadingIndicator /> : ''}
           <div className={style.time}>{new Date().toLocaleString('en-IN', { hour: 'numeric', minute: 'numeric', hour12: true })}</div>
@@ -70,5 +70,17 @@ const Bubble = ({ m, last }: { m: Message; last: boolean }) => {
         </motion.div>
       )}
     </React.Fragment>
+  )
+}
+
+export const GreetBubble = () => {
+  return (
+    <motion.div
+      initial={{ opacity: 0.4, y: 6 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.4 }}
+      className={clsx(style.bubble, style.greet)}>
+      Hey! 👋
+    </motion.div>
   )
 }
